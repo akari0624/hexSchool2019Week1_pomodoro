@@ -6,22 +6,24 @@ interface Props {
   height: string
   innerCanvasColor?: string
   outterCanvasColor?: string
+  passedSeconds: number
 }
 
 const MoveCircle = ({
   outterCanvasColor = '#000000',
   width,
   height,
+  passedSeconds,
 }: Props) => {
-  const memo = useMemo(() => ({ nowProgress: 0 }), [])
+  const _PassedSeconds = useRef<number>(0)
   const innerCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const tomatoClockMinutes = 25
-  const wholeTomatoClockMinutesProgress = 60 * 60 * tomatoClockMinutes
+  const wholeTomatoClockMinutesProgress =  60 * tomatoClockMinutes
   const clockLoopRunFuncRef = useRef<FrameRequestCallback | null>(null)
   const requestDrawMoveGraduallyCircleFrame = useCallback(
     (ctx: CanvasRenderingContext2D, ctxWidth: number, ctxHeight: number) => (
-      eTime: DOMHighResTimeStamp,
+      eTime: DOMHighResTimeStamp
     ) => {
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
@@ -33,7 +35,7 @@ const MoveCircle = ({
         0,
         (ctxWidth + ctxHeight) / 4,
         0 * Math.PI,
-        (memo.nowProgress / wholeTomatoClockMinutesProgress) * 2 * Math.PI,
+        (_PassedSeconds.current / wholeTomatoClockMinutesProgress) * 2 * Math.PI,
       )
       ctx.strokeStyle = outterCanvasColor
       ctx.stroke()
@@ -41,7 +43,6 @@ const MoveCircle = ({
       ctx.lineTo(0, 0)
       ctx.closePath()
       ctx.fill()
-      memo.nowProgress += 1
       ctx.setTransform(1, 0, 0, 1, 0, 0)
       clockLoopRunFuncRef.current &&
         requestAnimationFrame(clockLoopRunFuncRef.current)
@@ -97,6 +98,8 @@ const MoveCircle = ({
       )
     }
   }, [canvasRef, requestDrawMoveGraduallyCircleFrame, drawInnerCircle])
+
+  _PassedSeconds.current = passedSeconds
 
   return (
     <PositionRelativeDivWrapper>
