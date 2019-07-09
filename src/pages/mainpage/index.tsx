@@ -1,7 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react'
-
-
-import '../../styles.css'
 import MoveCircle from '../../components/movecircle'
 import Styled from 'styled-components'
 
@@ -35,7 +32,7 @@ function MainPage() {
   }, [isPaused])
 
   return (
-    <div className="App">
+    <>
       <div> 過了{passedSeconds}秒</div>
       <CanvasWrapDiv onClick={handleIsPause}>
         <MoveCircle
@@ -46,7 +43,7 @@ function MainPage() {
           passedSeconds={passedSeconds}
         />
       </CanvasWrapDiv>
-    </div>
+    </>
   )
 }
 
