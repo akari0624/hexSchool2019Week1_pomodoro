@@ -7,6 +7,7 @@ interface Props {
   innerCanvasColor?: string
   outterCanvasColor?: string
   passedSeconds: number
+  isPaused: boolean
 }
 
 const MoveCircle = ({
@@ -14,28 +15,33 @@ const MoveCircle = ({
   width,
   height,
   passedSeconds,
+  isPaused,
 }: Props) => {
+  const circleOffSet = 20
   const _PassedSeconds = useRef<number>(0)
   const innerCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const tomatoClockMinutes = 25
-  const wholeTomatoClockMinutesProgress =  60 * tomatoClockMinutes
+  const wholeTomatoClockMinutesProgress = 60 * tomatoClockMinutes
   const clockLoopRunFuncRef = useRef<FrameRequestCallback | null>(null)
   const requestDrawMoveGraduallyCircleFrame = useCallback(
     (ctx: CanvasRenderingContext2D, ctxWidth: number, ctxHeight: number) => (
-      eTime: DOMHighResTimeStamp
+      eTime: DOMHighResTimeStamp,
     ) => {
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
       ctx.rotate(-Math.PI / 2)
-      ctx.beginPath()
 
+      // 畫會慢慢長大的弧形
+      ctx.beginPath()
       ctx.arc(
         0,
         0,
         (ctxWidth + ctxHeight) / 4,
         0 * Math.PI,
-        (_PassedSeconds.current / wholeTomatoClockMinutesProgress) * 2 * Math.PI,
+        (_PassedSeconds.current / wholeTomatoClockMinutesProgress) *
+          2 *
+          Math.PI,
       )
       ctx.strokeStyle = outterCanvasColor
       ctx.stroke()
@@ -43,6 +49,14 @@ const MoveCircle = ({
       ctx.lineTo(0, 0)
       ctx.closePath()
       ctx.fill()
+
+      // 畫外圍一圈只有框的圓
+      ctx.beginPath()
+      ctx.arc(0, 0, (ctxWidth + ctxHeight) / 4, 0, 2 * Math.PI)
+      ctx.strokeStyle = outterCanvasColor
+      ctx.stroke()
+      ctx.closePath()
+
       ctx.setTransform(1, 0, 0, 1, 0, 0)
       clockLoopRunFuncRef.current &&
         requestAnimationFrame(clockLoopRunFuncRef.current)
@@ -55,21 +69,23 @@ const MoveCircle = ({
       innerCtx: CanvasRenderingContext2D,
       ctxWidth: number,
       ctxHeight: number,
+      isPaused,
     ) => {
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
       innerCtx.beginPath()
-      innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - 30, 0, 2 * Math.PI)
-      innerCtx.strokeStyle = '#FFFFFF'
+      innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet*1.5), 0, 2 * Math.PI)
+      innerCtx.strokeStyle = '#FF4384'
       innerCtx.stroke()
-      innerCtx.fillStyle = '#FFFFFF'
-      innerCtx.closePath()
+      innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
       innerCtx.fill()
+      innerCtx.closePath()
+     
     },
     [],
   )
 
   useLayoutEffect(() => {
-    if (canvasRef.current && innerCanvasRef.current) {
+    if (canvasRef.current) {
       const canvas1Width = canvasRef.current.offsetWidth
       const canvas1Height = canvasRef.current.offsetHeight
 
@@ -84,7 +100,12 @@ const MoveCircle = ({
         ctxHeight,
       )
       clockLoopRunFuncRef.current(Date.now())
+    }
+  }, [canvasRef, requestDrawMoveGraduallyCircleFrame])
 
+  // 畫中間的圓 只在denpendencies change時 才畫  不會使用requestAnimationFrame 一直畫
+  useLayoutEffect(() => {
+    if (innerCanvasRef.current) {
       const innerCtx = innerCanvasRef.current.getContext('2d')
       const innerCanvasWidth = innerCanvasRef.current.offsetWidth
       const innerCanvasHeight = innerCanvasRef.current.offsetHeight
@@ -95,9 +116,10 @@ const MoveCircle = ({
         innerCtx as CanvasRenderingContext2D,
         innerCanvasWidth,
         innerCanvasHeight,
+        isPaused,
       )
     }
-  }, [canvasRef, requestDrawMoveGraduallyCircleFrame, drawInnerCircle])
+  }, [innerCanvasRef, drawInnerCircle, isPaused])
 
   _PassedSeconds.current = passedSeconds
 

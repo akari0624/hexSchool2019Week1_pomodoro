@@ -15,7 +15,7 @@ const countDownMinutes = 25
 let countDownAllMillSeconds = countDownMinutes * 60 // 1500 秒
 
 function App() {
-  const [isPaused, setIsPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
 
   const handleIsPause = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -43,7 +43,8 @@ function App() {
         <MoveCircle
           width={'500px'}
           height={'500px'}
-          outterCanvasColor={isPaused ? '#000000' : '#FF4384'}
+          outterCanvasColor={isPaused ? '#FF4384' : '#FF4384'}
+          isPaused={isPaused}
           passedSeconds={passedSeconds}
         />
       </CanvasWrapDiv>
