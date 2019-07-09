@@ -5,6 +5,8 @@ declare global {
     HTMLElement: Function
   }
 }
+
+// https://github.com/jsdom/jsdom/issues/135#issuecomment-68191941
 Object.defineProperties(window.HTMLElement.prototype, {
   offsetLeft: {
     get: function() { return  500; }
