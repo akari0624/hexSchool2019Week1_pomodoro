@@ -12,6 +12,8 @@ interface Props {
 
 export const canvasDataTestId = 'PomodoroClock'
 
+const lineWidth = 4  // px
+
 const MoveCircle = ({
   outterCanvasColor = '#000000',
   width,
@@ -33,7 +35,7 @@ const MoveCircle = ({
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
       ctx.rotate(-Math.PI / 2)
-
+      ctx.lineWidth = lineWidth
       // 畫會慢慢長大的弧形
       ctx.beginPath()
       ctx.arc(
@@ -73,6 +75,7 @@ const MoveCircle = ({
 
       const playCircleRadius = (ctxWidth + ctxHeight) / 20
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
+      innerCtx.lineWidth = lineWidth
       innerCtx.beginPath()
       innerCtx.arc(0, 0, playCircleRadius, 0 , 2 * Math.PI) 
       innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
@@ -95,6 +98,7 @@ const MoveCircle = ({
       isPaused,
     ) => {
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
+      innerCtx.lineWidth = lineWidth
       innerCtx.beginPath()
       innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet * 1.5), 0, 2 * Math.PI)
       innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'

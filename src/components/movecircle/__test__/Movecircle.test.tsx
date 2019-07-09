@@ -1,7 +1,7 @@
 import React from 'react'
 import { render as rtlRender } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import MoveCircle, { canvasDataTestId } from '../movecircle'
+import MoveCircle, { canvasDataTestId } from '../Movecircle'
 
 describe('MoveCircle test', () => {
 

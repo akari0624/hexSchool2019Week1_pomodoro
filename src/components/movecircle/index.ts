@@ -1,3 +1,3 @@
-import MoveCircle from './movecircle'
+import MoveCircle from './Movecircle'
 
 export { MoveCircle as default }
