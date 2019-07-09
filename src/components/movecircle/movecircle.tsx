@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react'
+import React, { useRef, useLayoutEffect, useCallback } from 'react'
 import { PositionRelativeDivWrapper, OutterCanvas, InnerCanvas } from './styled'
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
   passedSeconds: number
   isPaused: boolean
 }
+
+export const canvasDataTestId = 'PomodoroClock'
 
 const MoveCircle = ({
   outterCanvasColor = '#000000',
@@ -94,7 +96,7 @@ const MoveCircle = ({
     ) => {
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
       innerCtx.beginPath()
-      innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet*1.5), 0, 2 * Math.PI)
+      innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet * 1.5), 0, 2 * Math.PI)
       innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
       innerCtx.stroke()
       innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
@@ -152,8 +154,8 @@ const MoveCircle = ({
   return (
     <PositionRelativeDivWrapper>
       <h4>move circle</h4>
-      <OutterCanvas ref={canvasRef} width={width} height={height} />
-      <InnerCanvas ref={innerCanvasRef} width={width} height={height} />
+      <OutterCanvas ref={canvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
+      <InnerCanvas ref={innerCanvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
     </PositionRelativeDivWrapper>
   )
 }
