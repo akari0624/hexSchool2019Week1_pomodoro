@@ -64,6 +64,27 @@ const MoveCircle = ({
     [wholeTomatoClockMinutesProgress, clockLoopRunFuncRef, outterCanvasColor],
   )
 
+  const drawPlayOrStopButton = useCallback((innerCtx: CanvasRenderingContext2D,
+      ctxWidth: number,
+      ctxHeight: number,
+      isPaused) => {
+
+      const playCircleRadius = (ctxWidth + ctxHeight) / 20
+      innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
+      innerCtx.beginPath()
+      innerCtx.arc(0, 0, playCircleRadius, 0 , 2 * Math.PI) 
+      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
+      innerCtx.stroke()
+      innerCtx.fillStyle = isPaused ? '#FFFFFF' : '#FF4384'
+      innerCtx.fill()
+      innerCtx.closePath()
+
+      // isPaused => 畫一個三角形播放鍵, !isPaused => 畫兩條直線代表暫停
+
+      innerCtx.setTransform(1, 0, 0, 1, 0, 0)
+
+  }, [isPaused])
+
   const drawInnerCircle = useCallback(
     (
       innerCtx: CanvasRenderingContext2D,
@@ -74,12 +95,17 @@ const MoveCircle = ({
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
       innerCtx.beginPath()
       innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet*1.5), 0, 2 * Math.PI)
-      innerCtx.strokeStyle = '#FF4384'
+      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
       innerCtx.stroke()
       innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
       innerCtx.fill()
       innerCtx.closePath()
-     
+      innerCtx.setTransform(1, 0, 0, 1, 0, 0)
+
+      drawPlayOrStopButton(innerCtx,
+        ctxWidth,
+        ctxHeight,
+        isPaused,)
     },
     [],
   )
