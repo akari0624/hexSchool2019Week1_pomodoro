@@ -1,7 +1,8 @@
 {
   "extends": [
     "tslint-config-airbnb",
-    "tslint-react"
+    "tslint-react",
+    "tslint-react-hooks"
   ],
   "rules": {
     "semicolon":false,
@@ -19,6 +20,9 @@
         "property-declaration": "space"
       }],
       "no-console": [false],
+      "react-hooks-nesting": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "error",
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
