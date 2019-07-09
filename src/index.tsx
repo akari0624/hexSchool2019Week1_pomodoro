@@ -5,6 +5,12 @@ import { render } from 'react-dom'
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
+
+  html, body {
+    width: 100vw;
+    height: 100vh;
+  }
+
   * {
     margin: 0px;
     padding: 0px;

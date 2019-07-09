@@ -157,7 +157,6 @@ const MoveCircle = ({
 
   return (
     <PositionRelativeDivWrapper>
-      <h4>move circle</h4>
       <OutterCanvas ref={canvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
       <InnerCanvas ref={innerCanvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
     </PositionRelativeDivWrapper>
