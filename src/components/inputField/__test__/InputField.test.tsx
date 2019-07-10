@@ -36,11 +36,10 @@ describe('InputField Component test', () => {
     expect(element).toHaveValue(value)
   })
 
-  test('when onChange fire can render new input value, intgrated with useState', async () => {
-    const value = 'value on InputField'
+  test('when onChange fire can render new input value, intergrated with useState', async () => {
     const testId = 'theInput'
     const newTextInputEnterValue = 'new text input'
-    const container2 = rtlRender(<StateInputField data-testid={testId} />)
+    const container2 = rtlRender(<StateInputField  data-testid={testId} />)
     const element = await container2.findByTestId(testId)
     fireEvent.change(element, { target: { value: newTextInputEnterValue } })
     expect(element).toHaveValue(newTextInputEnterValue)
