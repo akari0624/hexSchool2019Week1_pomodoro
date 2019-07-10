@@ -3,6 +3,7 @@ import Styled from 'styled-components'
 import { FlexWrapper, LeftWrapper, RightWrapper } from './styled'
 import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
+import InputField from '../../components/inputField'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -43,10 +44,28 @@ function MainPage() {
     }
   }, [isPaused])
 
+  const [text, setText] = useState('')
+
+  const onInputContentChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      setText((nowText: string) => evt.currentTarget.value)
+    },
+    [],
+  )
+
   return (
     <FlexWrapper>
       <LeftWrapper>
-        <CountdownTimeText wholeMinutes={countDownMinutes} passedSeconds={passedSeconds} />
+        <CountdownTimeText
+          wholeMinutes={countDownMinutes}
+          passedSeconds={passedSeconds}
+        />
+        <InputField
+          placeholder={'add a new mission…'}
+          data-testid={'addTodoInputTestID'}
+          value={text}
+          onChange={onInputContentChange}
+        />
       </LeftWrapper>
       <RightWrapper>
         <CanvasWrapDiv onClick={handleIsPause}>
