@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import MoveCircle from '../../components/movecircle'
 import Styled from 'styled-components'
 import { FlexWrapper, LeftWrapper, RightWrapper } from './styled'
+import MoveCircle from '../../components/movecircle'
+import TimeText from '../../components/timeText/'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -39,13 +40,14 @@ function MainPage() {
   return (
     <FlexWrapper>
       <LeftWrapper>
-        <div> 過了{passedSeconds}秒</div>
+        <TimeText wholeMinutes={countDownMinutes} passSeconds={passedSeconds} />
       </LeftWrapper>
       <RightWrapper>
         <CanvasWrapDiv onClick={handleIsPause}>
           <MoveCircle
             width={'540px'}
             height={'540px'}
+            tomatoClockMinutes={countDownMinutes}
             outterCanvasColor={isPaused ? '#FF4384' : '#FF4384'}
             isPaused={isPaused}
             passedSeconds={passedSeconds}
