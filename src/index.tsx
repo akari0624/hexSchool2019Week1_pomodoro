@@ -3,7 +3,7 @@ import MainPage from './pages/mainpage'
 import { render } from 'react-dom'
 import { ThemeProvider } from 'styled-components'
 import {Provider} from 'react-redux'
-import { Themes } from './themes'
+import { ActiveThemes } from './themes/theme'
 import {appStore} from './store'
 import { StyledComponentGlobalStyle } from './themes/globalStyle'
 
@@ -13,7 +13,7 @@ render(
   <>
     <StyledComponentGlobalStyle />
     <Provider store={appStore}>
-    <ThemeProvider theme={Themes}>
+    <ThemeProvider theme={ActiveThemes}>
       <MainPage />
     </ThemeProvider>
     </Provider>
