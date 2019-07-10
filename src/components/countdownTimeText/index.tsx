@@ -3,7 +3,7 @@ import { TimeTextStyledComp } from './styled'
 
 interface Props {
   wholeMinutes: number
-  passSeconds: number
+  passedSeconds: number
 
 }
 
@@ -11,7 +11,7 @@ export const formatToClockTimeString = (min: number, sec: number) => {
   return (min < 10 ? '0'+min : min)+ ':' + (sec >= 10 ? ''+sec : '0'+sec)
 }
 
-export default function TimeText({wholeMinutes, passSeconds}: Props) {
+export default function TimeText({wholeMinutes, passedSeconds}: Props) {
 
   const {wholeSeconds} = useMemo(() => (
     {wholeSeconds: wholeMinutes * 60}
@@ -26,7 +26,7 @@ export default function TimeText({wholeMinutes, passSeconds}: Props) {
 
     return [Math.floor(remainSeconds/60), remainSeconds%60]
   }, [])
-  const [min, sec] = getMinAndSec(wholeSeconds, passSeconds)
+  const [min, sec] = getMinAndSec(wholeSeconds, passedSeconds)
   return (
     <TimeTextStyledComp>
       {formatToClockTimeString(min, sec)}

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
 import { FlexWrapper, LeftWrapper, RightWrapper } from './styled'
 import MoveCircle from '../../components/movecircle'
-import TimeText from '../../components/timeText/'
+import CountdownTimeText from '../../components/countdownTimeText'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -40,7 +40,7 @@ function MainPage() {
   return (
     <FlexWrapper>
       <LeftWrapper>
-        <TimeText wholeMinutes={countDownMinutes} passSeconds={passedSeconds} />
+        <CountdownTimeText wholeMinutes={countDownMinutes} passedSeconds={passedSeconds} />
       </LeftWrapper>
       <RightWrapper>
         <CanvasWrapDiv onClick={handleIsPause}>
