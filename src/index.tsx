@@ -1,8 +1,8 @@
 import React from 'react'
 import MainPage from './pages/mainpage'
 import { render } from 'react-dom'
-
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { Themes } from './themes'
 
 const GlobalStyle = createGlobalStyle`
 
@@ -22,7 +22,9 @@ const rootElement = document.getElementById('root')
 render(
   <>
     <GlobalStyle />
-    <MainPage />
+    <ThemeProvider theme={Themes}>
+      <MainPage />
+    </ThemeProvider>
   </>,
   rootElement,
 )
