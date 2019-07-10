@@ -11,6 +11,12 @@ const CanvasWrapDiv = Styled.div`
   z-index: 3000;
   margin-left: -275px;
   margin-top: calc(50vh - 540px / 2);
+
+  @media (max-width:${props => props.theme.mobileOneColumn}){
+     margin-left: 0px;
+     margin-top: calc(50vh - 540px);
+  }
+  
 `
 
 const countDownMinutes = 25

@@ -13,6 +13,10 @@ const TimeText = Styled.div`
   color: #FF4384;
   font-size: 176px;
   line-height: ${TEXT_LINE_HEIGHT};
+  font-family: 'Roboto', sans-serif;
+   @media (max-width:${props => props.theme.mobileOneColumn}){
+    font-size: 100px;
+  }
 `
 
 interface Props {
