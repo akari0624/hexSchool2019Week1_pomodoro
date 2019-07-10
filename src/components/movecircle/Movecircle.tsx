@@ -8,6 +8,7 @@ interface Props {
   outterCanvasColor?: string
   passedSeconds: number
   isPaused: boolean
+  tomatoClockMinutes: number
 }
 
 export const canvasDataTestId = 'PomodoroClock'
@@ -20,12 +21,12 @@ const MoveCircle = ({
   height,
   passedSeconds,
   isPaused,
+  tomatoClockMinutes,
 }: Props) => {
   const circleOffSet = 20
   const _PassedSeconds = useRef<number>(0)
   const innerCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const tomatoClockMinutes = 25
   const wholeTomatoClockMinutesProgress = 60 * tomatoClockMinutes
   const clockLoopRunFuncRef = useRef<FrameRequestCallback | null>(null)
   const requestDrawMoveGraduallyCircleFrame = useCallback(
