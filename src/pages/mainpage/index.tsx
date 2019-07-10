@@ -62,7 +62,6 @@ function MainPage() {
         />
         <InputField
           placeholder={'add a new mission…'}
-          data-testid={'addTodoInputTestID'}
           value={text}
           onChange={onInputContentChange}
         />
