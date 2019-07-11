@@ -1,9 +1,14 @@
 import React, { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { InputFieldWithConfirmButton } from '../../../components/inputField'
+import { TodoReducerActionTypes } from '../../../store/actionTypes/reducers/todos'
+import { TodoVO } from '../../../store/entities/todo'
+
+const examineIsDescContentOK = (desc: string) => (desc ? true : false)
 
 export default function InputForm() {
-
   const [text, setText] = useState('')
+  const dispatcher = useDispatch()
 
   const onInputContentChange = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,23 +18,28 @@ export default function InputForm() {
     [setText],
   )
 
-   const handleOnFormSubmit = useCallback(
+  const handleOnFormSubmit = useCallback(
     (evt: React.FormEvent<HTMLFormElement>) => {
       evt.preventDefault()
-      console.log(`mock submit:${text}`)
+      if (!examineIsDescContentOK(text)) {
+        return
+      }
+
+      dispatcher({
+        type: TodoReducerActionTypes.Add_TODO,
+        payload: new TodoVO(text, 1500),
+      })
     },
     [text],
   )
 
-
   return (
     <form onSubmit={handleOnFormSubmit}>
-       <InputFieldWithConfirmButton
-          placeholder={'ADD A NEW MISSION…'}
-          value={text}
-          onChange={onInputContentChange}
-        />
-      
+      <InputFieldWithConfirmButton
+        placeholder={'ADD A NEW MISSION…'}
+        value={text}
+        onChange={onInputContentChange}
+      />
     </form>
   )
 }

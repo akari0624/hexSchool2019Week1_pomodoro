@@ -4,6 +4,7 @@ import { FlexWrapper, LeftWrapper, RightWrapper } from './styled'
 import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
 import  InputForm  from './container/InputForm'
+import ListArea from '../../components/listArea'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -54,6 +55,7 @@ function MainPage() {
           passedSeconds={passedSeconds}
         />
        <InputForm />
+       <ListArea />
       </LeftWrapper>
       <RightWrapper>
         <CanvasWrapDiv onClick={handleIsPause}>
