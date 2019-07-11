@@ -13,7 +13,7 @@ interface Props {
 
 export const canvasDataTestId = 'PomodoroClock'
 
-const lineWidth = 4  // px
+const lineWidth = 4 // px
 
 const MoveCircle = ({
   outterCanvasColor = '#000000',
@@ -69,16 +69,18 @@ const MoveCircle = ({
     [wholeTomatoClockMinutesProgress, clockLoopRunFuncRef, outterCanvasColor],
   )
 
-  const drawPlayOrStopButton = useCallback((innerCtx: CanvasRenderingContext2D,
+  const drawPlayOrStopButton = useCallback(
+    (
+      innerCtx: CanvasRenderingContext2D,
       ctxWidth: number,
       ctxHeight: number,
-      isPaused) => {
-
+      isPaused,
+    ) => {
       const playCircleRadius = (ctxWidth + ctxHeight) / 20
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
       innerCtx.lineWidth = lineWidth
       innerCtx.beginPath()
-      innerCtx.arc(0, 0, playCircleRadius, 0 , 2 * Math.PI) 
+      innerCtx.arc(0, 0, playCircleRadius, 0, 2 * Math.PI)
       innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
       innerCtx.stroke()
       innerCtx.fillStyle = isPaused ? '#FFFFFF' : '#FF4384'
@@ -86,10 +88,59 @@ const MoveCircle = ({
       innerCtx.closePath()
 
       // isPaused => 畫一個三角形播放鍵, !isPaused => 畫兩條直線代表暫停
+      if (isPaused) {
+        const triangleBaseLength = playCircleRadius / 3
+
+        innerCtx.translate(5, 0)
+
+        innerCtx.beginPath()
+        innerCtx.lineTo(triangleBaseLength, 0)
+        innerCtx.lineTo(-triangleBaseLength * 1, -triangleBaseLength)
+        innerCtx.lineTo(-triangleBaseLength * 1, triangleBaseLength)
+        innerCtx.lineTo(triangleBaseLength, 0)
+        innerCtx.closePath()
+        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.stroke()
+        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fill()
+      }else{
+        const stopSignBaseLength = playCircleRadius / 3
+        innerCtx.translate(5, 0)
+        innerCtx.beginPath()
+        innerCtx.lineTo(stopSignBaseLength, 0)
+        innerCtx.lineTo(stopSignBaseLength, -stopSignBaseLength)
+        innerCtx.lineTo(0, -stopSignBaseLength)
+        innerCtx.lineTo(0, stopSignBaseLength)
+        innerCtx.lineTo(stopSignBaseLength, stopSignBaseLength)
+        innerCtx.closePath()
+        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.stroke()
+        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fill()
+
+        innerCtx.translate(-10, 0)
+        innerCtx.beginPath()
+        innerCtx.lineTo(-stopSignBaseLength, 0)
+        innerCtx.lineTo(-stopSignBaseLength, -stopSignBaseLength)
+        innerCtx.lineTo(0, -stopSignBaseLength)
+        innerCtx.lineTo(0, 0)
+        innerCtx.lineTo(0, stopSignBaseLength)
+        innerCtx.lineTo(-stopSignBaseLength, stopSignBaseLength)
+        innerCtx.lineTo(-stopSignBaseLength, 0)
+        innerCtx.lineTo(0, 0)
+        innerCtx.closePath()
+
+        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.stroke()
+        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fill()
+
+      }
 
       innerCtx.setTransform(1, 0, 0, 1, 0, 0)
-
-  }, [isPaused])
+    },
+    [isPaused],
+  )
 
   const drawInnerCircle = useCallback(
     (
@@ -101,7 +152,13 @@ const MoveCircle = ({
       innerCtx.translate(ctxWidth / 2, ctxHeight / 2)
       innerCtx.lineWidth = lineWidth
       innerCtx.beginPath()
-      innerCtx.arc(0, 0, (ctxWidth + ctxHeight) / 4 - (circleOffSet * 1.5), 0, 2 * Math.PI)
+      innerCtx.arc(
+        0,
+        0,
+        (ctxWidth + ctxHeight) / 4 - circleOffSet * 1.5,
+        0,
+        2 * Math.PI,
+      )
       innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
       innerCtx.stroke()
       innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
@@ -109,10 +166,7 @@ const MoveCircle = ({
       innerCtx.closePath()
       innerCtx.setTransform(1, 0, 0, 1, 0, 0)
 
-      drawPlayOrStopButton(innerCtx,
-        ctxWidth,
-        ctxHeight,
-        isPaused,)
+      drawPlayOrStopButton(innerCtx, ctxWidth, ctxHeight, isPaused)
     },
     [],
   )
@@ -158,8 +212,18 @@ const MoveCircle = ({
 
   return (
     <PositionRelativeDivWrapper>
-      <OutterCanvas ref={canvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
-      <InnerCanvas ref={innerCanvasRef} width={width} height={height} data-testid={canvasDataTestId}/>
+      <OutterCanvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        data-testid={canvasDataTestId}
+      />
+      <InnerCanvas
+        ref={innerCanvasRef}
+        width={width}
+        height={height}
+        data-testid={canvasDataTestId}
+      />
     </PositionRelativeDivWrapper>
   )
 }
