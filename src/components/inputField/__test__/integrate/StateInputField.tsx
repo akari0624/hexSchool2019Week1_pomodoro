@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import InputField from '../../index'
+import { InputFieldWithConfirmButton } from '../../index'
 
 const StateInputField = (props: any) => {
   const [text, setText] = useState('')
@@ -8,7 +8,7 @@ const StateInputField = (props: any) => {
     setText(prevState => evt.currentTarget.value)
   }
 
-  return <InputField value={text} onChange={handleInputChange} {...props}/>
+  return <InputFieldWithConfirmButton value={text} onChange={handleInputChange} {...props}/>
 }
 
 export { StateInputField }

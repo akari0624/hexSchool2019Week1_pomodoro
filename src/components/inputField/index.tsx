@@ -6,7 +6,7 @@ type EventHandler = {
   onClick: (evt: React.MouseEvent<HTMLElement>) => void
 }
 
-const InputField: React.FunctionComponent<
+const InputFieldWithConfirmButton: React.FunctionComponent<
   Partial<HTMLInputElement & EventHandler>
 > = props => {
   return (
@@ -18,4 +18,4 @@ const InputField: React.FunctionComponent<
   )
 }
 
-export { InputField as default }
+export { InputFieldWithConfirmButton }
