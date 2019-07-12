@@ -1,14 +1,17 @@
 import { combineReducers } from 'redux'
-import {TodosReducerState} from '../reducers/todos/types'
+import { TodosReducerState } from '../reducers/todos/types'
 import { TodosReducer } from '../reducers/todos'
+import { AppConfigStateType } from '../reducers/app_configs/types'
+import { AppConfigReducer } from '../reducers/app_configs'
 
 export type AppState = {
-  todo: TodosReducerState
+  todo: TodosReducerState,
+  appConfig: AppConfigStateType,
 }
 
 const rootReducer = combineReducers<AppState>({
-
-    todo: TodosReducer
+  appConfig: AppConfigReducer,
+  todo: TodosReducer,
 })
 
 export default rootReducer

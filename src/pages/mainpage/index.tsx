@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
+import { useSelector } from 'react-redux'
 import {
   FlexWrapper,
   LeftWrapper,
@@ -12,6 +13,8 @@ import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
 import InputForm from './container/InputForm'
 import ListArea from '../../components/listArea'
+import { AppState } from '../../store/reducers'
+import {AppConfigStateType as AppConfig} from '../../store/reducers/app_configs/types'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -28,9 +31,9 @@ const CanvasWrapDiv = Styled.div`
   
 `
 
-const countDownMinutes = 25
 
 function MainPage() {
+  const countDownMinutes = useSelector<AppState, number>(appState => appState.appConfig.waitMinutes)
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
 
