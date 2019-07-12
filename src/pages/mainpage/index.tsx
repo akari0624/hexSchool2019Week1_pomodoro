@@ -1,9 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
-import { FlexWrapper, LeftWrapper, RightWrapper } from './styled'
+import {
+  FlexWrapper,
+  LeftWrapper,
+  RightWrapper,
+  InputFormLocatedWrapper,
+  CountdownTimeTextWrapper,
+  ListAreaWrapper,
+} from './styled'
 import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
-import  InputForm  from './container/InputForm'
+import InputForm from './container/InputForm'
 import ListArea from '../../components/listArea'
 
 const CanvasWrapDiv = Styled.div`
@@ -45,17 +52,21 @@ function MainPage() {
     }
   }, [isPaused])
 
-
-
   return (
     <FlexWrapper>
       <LeftWrapper>
-        <CountdownTimeText
-          wholeMinutes={countDownMinutes}
-          passedSeconds={passedSeconds}
-        />
-       <InputForm />
-       <ListArea />
+        <InputFormLocatedWrapper>
+          <InputForm />
+        </InputFormLocatedWrapper>
+        <CountdownTimeTextWrapper>
+          <CountdownTimeText
+            wholeMinutes={countDownMinutes}
+            passedSeconds={passedSeconds}
+          />
+        </CountdownTimeTextWrapper>
+        <ListAreaWrapper>
+          <ListArea />
+        </ListAreaWrapper>
       </LeftWrapper>
       <RightWrapper>
         <CanvasWrapDiv onClick={handleIsPause}>
