@@ -33,6 +33,7 @@ const MoveCircle = ({
     (ctx: CanvasRenderingContext2D, ctxWidth: number, ctxHeight: number) => (
       eTime: DOMHighResTimeStamp,
     ) => {
+      const offsetToPreventPixelOverflowCanvas = 2
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
       ctx.rotate(-Math.PI / 2)
@@ -42,7 +43,7 @@ const MoveCircle = ({
       ctx.arc(
         0,
         0,
-        (ctxWidth + ctxHeight) / 4,
+        (ctxWidth + ctxHeight) / 4 - offsetToPreventPixelOverflowCanvas,
         0 * Math.PI,
         (_PassedSeconds.current / wholeTomatoClockMinutesProgress) *
           2 *
@@ -57,7 +58,7 @@ const MoveCircle = ({
 
       // 畫外圍一圈只有框的圓
       ctx.beginPath()
-      ctx.arc(0, 0, (ctxWidth + ctxHeight) / 4, 0, 2 * Math.PI)
+      ctx.arc(0, 0, ((ctxWidth + ctxHeight) / 4) - offsetToPreventPixelOverflowCanvas, 0, 2 * Math.PI)
       ctx.strokeStyle = outterCanvasColor
       ctx.stroke()
       ctx.closePath()
