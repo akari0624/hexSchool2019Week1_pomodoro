@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { InputFieldWithConfirmButton } from '../../../components/inputField'
 import { TodoReducerActionTypes } from '../../../store/actionTypes/reducers/todos'
 import { TodoVO } from '../../../store/entities/todo'
+import { addNewTodo } from '../../../store/actionCreator/sagas/todos'
 
 const examineIsDescContentOK = (desc: string) => (desc ? true : false)
 
@@ -25,10 +26,7 @@ export default function InputForm() {
         return
       }
 
-      dispatcher({
-        type: TodoReducerActionTypes.Add_TODO,
-        payload: new TodoVO(text, 1500),
-      })
+      dispatcher(addNewTodo(new TodoVO(text, 1500)))
     },
     [text],
   )
