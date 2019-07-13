@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
 import { Decimal } from 'decimal.js'
+import { useSelector } from 'react-redux'
 import {
   FlexWrapper,
   LeftWrapper,
@@ -13,8 +14,10 @@ import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
 import InputForm from './container/InputForm'
 import ListArea from '../../components/listArea'
-import {AppCondition} from '../../store/reducers/app_configs/types'
+import { AppCondition } from '../../store/reducers/app_configs/types'
 import { ThemeType } from '../../themes/theme'
+import { AppState } from '../../store/reducers'
+import { Todo } from '../../store/reducers/todos/types'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -41,12 +44,19 @@ interface Props {
 
 function MainPage(props: Props) {
   const { countDownMinutes, appTheme, changeTheme, toggleAppStatus, appConditionNow } = props
+
+  const todos = useSelector<AppState, Todo[]>( state => state.todo.todos)
+  const isHaveTodosToBeginPomodoro = todos.length > 0 ? true : false
+  const specilaText = isHaveTodosToBeginPomodoro ? '' : 'add Some Todos'
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
 
   const handleIsPause = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if(!isHaveTodosToBeginPomodoro){
+      return
+    }
     setIsPaused((isPaused: boolean) => !isPaused)
-  }, [])
+  }, [isHaveTodosToBeginPomodoro])
 
   useEffect(() => {
     const doSetPassedSeconds = () => {
@@ -82,6 +92,7 @@ function MainPage(props: Props) {
           <CountdownTimeText
             wholeMinutes={countDownMinutes.toNumber()}
             passedSeconds={passedSeconds}
+            specialText={specilaText}
           />
         </CountdownTimeTextWrapper>
         <ListAreaWrapper>
