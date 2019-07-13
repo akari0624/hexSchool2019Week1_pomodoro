@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import RootReducer from './reducers'
-import logicRootSagaArray from '../saga'
+import logicRootSagaArray from './saga'
 const sagaMiddleware = createSagaMiddleware()
 
 const createStoreWithMiddleware = applyMiddleware(sagaMiddleware)(createStore)

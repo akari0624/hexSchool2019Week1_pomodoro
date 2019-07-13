@@ -1,9 +1,9 @@
 
 import { all, put, take, call } from 'redux-saga/effects'
-import { TodoSagaActionTypes } from '../../store/actionTypes/sagas/todo'
-import { addNewTodo } from '../../store/actionCreator/reducers/todos'
+import { TodoSagaActionTypes } from '../../actionTypes/sagas/todo'
+import { addNewTodo } from '../../actionCreator/reducers/todos'
 import {Action} from 'redux-actions'
-import { TodoVO } from '../../store/entities/todo'
+import { TodoVO } from '../../entities/todo'
 
 function* addNewTodoFlow() {
   while(true){
