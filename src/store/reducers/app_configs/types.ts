@@ -1,6 +1,9 @@
+import {Decimal} from 'decimal.js'
+
+
 export type AppConfigStateType = {
-  taskOneTomatowaitMinutes: number,
-  betweenTomatoTaskBreakMinutes: number,
+  taskOneTomatowaitMinutes: Decimal,
+  betweenTomatoTaskBreakMinutes: Decimal,
   appNowStatus: AppCondition,
 }
 

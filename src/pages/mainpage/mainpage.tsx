@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { Decimal } from 'decimal.js'
 import {
   FlexWrapper,
   LeftWrapper,
@@ -13,7 +13,6 @@ import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
 import InputForm from './container/InputForm'
 import ListArea from '../../components/listArea'
-import { AppState } from '../../store/reducers'
 import {AppCondition} from '../../store/reducers/app_configs/types'
 import { ThemeType } from '../../themes/theme'
 
@@ -35,13 +34,12 @@ const CanvasWrapDiv = Styled.div`
 interface Props {
   changeTheme: (string) => void
   appTheme: ThemeType
-  countDownMinutes: number
+  countDownMinutes: Decimal
   toggleAppStatus: () => void
   appConditionNow: AppCondition
 }
 
 function MainPage(props: Props) {
-  console.log('update again?', props.countDownMinutes, props.appConditionNow)
   const { countDownMinutes, appTheme, changeTheme, toggleAppStatus, appConditionNow } = props
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
@@ -56,7 +54,7 @@ function MainPage(props: Props) {
         setPassedSeconds((passedSeconds: number) => passedSeconds + 1)
       }
 
-      if(countDownMinutes * 60 === passedSeconds){
+      if(Decimal.mul(countDownMinutes, new Decimal(60)).eq(passedSeconds) ){
         if(appConditionNow === AppCondition.ACTIVE){
           changeTheme('break')
         }else{
@@ -82,7 +80,7 @@ function MainPage(props: Props) {
         </InputFormLocatedWrapper>
         <CountdownTimeTextWrapper>
           <CountdownTimeText
-            wholeMinutes={countDownMinutes}
+            wholeMinutes={countDownMinutes.toNumber()}
             passedSeconds={passedSeconds}
           />
         </CountdownTimeTextWrapper>
@@ -95,7 +93,7 @@ function MainPage(props: Props) {
           <MoveCircle
             width={'540px'}
             height={'540px'}
-            tomatoClockMinutes={countDownMinutes}
+            tomatoClockMinutes={countDownMinutes.toNumber()}
             outterCanvasColor={isPaused ? appTheme.canvasThemeColor : appTheme.canvasThemeColor}
             isPaused={isPaused}
             passedSeconds={passedSeconds}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ThemeType } from '../../themes/theme'
 import { useSelector, useDispatch } from 'react-redux'
+import { Decimal } from 'decimal.js'
 import {
   AppConfigStateType,
   AppCondition,
@@ -22,7 +23,7 @@ export default function MainPageWrapper(props: Props) {
 
   const toggleAppStatus = () => dispatcher(toggleAppCondition())
 
-  let countDownMinutes
+  let countDownMinutes: Decimal
   const appConditionNow = appConfig.appNowStatus
   if (appConditionNow === AppCondition.ACTIVE) {
     countDownMinutes = appConfig.taskOneTomatowaitMinutes

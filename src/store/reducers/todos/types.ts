@@ -1,6 +1,8 @@
+import {Decimal} from 'decimal.js'
+
 export type Todo = {
   desc: string,
-  remainSec: number,
+  remainSec: Decimal,
   createTimestamp: number,
   isComplete: boolean,
   nowTask: boolean,

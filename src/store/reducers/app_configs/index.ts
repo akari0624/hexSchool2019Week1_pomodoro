@@ -1,10 +1,11 @@
 import { AppConfigStateType, AppCondition } from './types'
 import { AppConditionReducersActionTypes } from '../../actionTypes/reducers/appconditions'
+import {Decimal} from 'decimal.js'
 
 const getDefaultStateOfAppConfigReducer = (): AppConfigStateType => {
   return {
-    taskOneTomatowaitMinutes: 25,
-    betweenTomatoTaskBreakMinutes: 5,
+    taskOneTomatowaitMinutes: new Decimal(25),
+    betweenTomatoTaskBreakMinutes: new Decimal(5),
     appNowStatus: AppCondition.ACTIVE,
   }
 }

@@ -1,16 +1,17 @@
 import {Todo} from '../reducers/todos/types'
+import {Decimal} from 'decimal.js'
 
 class TodoImpl implements Todo {
 
   desc: string
-  remainSec: number
+  remainSec: Decimal
   createTimestamp: number
   isComplete: boolean
   nowTask: boolean
   tomatoCount: number
   nowTomatoCount: number
 
-  constructor(desc: string, remainSec: number, nowTask: boolean) {
+  constructor(desc: string, remainSec: Decimal, nowTask: boolean) {
     this.desc = desc
     this.remainSec = remainSec
     this.createTimestamp = Math.floor((Date.now() / 1000))
