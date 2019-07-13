@@ -9,10 +9,12 @@ import {
   InputFormLocatedWrapper,
   CountdownTimeTextWrapper,
   ListAreaWrapper,
+  NowTaskBarWrapper,
 } from './styled'
 import MoveCircle from '../../components/movecircle'
 import CountdownTimeText from '../../components/countdownTimeText'
 import InputForm from './container/InputForm'
+import NowTaskBar from './container/NowTaskBar'
 import ListArea from '../../components/listArea'
 import { AppCondition } from '../../store/reducers/app_configs/types'
 import { ThemeType } from '../../themes/theme'
@@ -88,6 +90,9 @@ function MainPage(props: Props) {
         <InputFormLocatedWrapper>
           <InputForm />
         </InputFormLocatedWrapper>
+        <NowTaskBarWrapper>
+          <NowTaskBar />
+        </NowTaskBarWrapper>
         <CountdownTimeTextWrapper>
           <CountdownTimeText
             wholeMinutes={countDownMinutes.toNumber()}
