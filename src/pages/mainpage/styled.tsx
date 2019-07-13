@@ -13,7 +13,7 @@ export const FlexWrapper = Styled.main`
 export const LeftWrapper = Styled.section`
   width: 70%;
   height: 100%;
-  background-color: #FFEDF7;
+  background-color: ${props => props.theme.leftWrapperBgColor};
   position: relative;
   @media (max-width:${props => props.theme.mobileOneColumn}){
     width: 100%;

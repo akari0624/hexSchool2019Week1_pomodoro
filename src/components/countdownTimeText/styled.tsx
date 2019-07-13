@@ -10,7 +10,7 @@ const TimeTetxWrapper = Styled.div`
 `
 
 const TimeText = Styled.div`
-  color: #FF4384;
+  color: ${ props => props.theme.countDownTextColor};
   font-size: 176px;
   line-height: ${TEXT_LINE_HEIGHT};
   font-family: 'Roboto', sans-serif;

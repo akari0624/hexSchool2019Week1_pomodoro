@@ -15,6 +15,7 @@ import InputForm from './container/InputForm'
 import ListArea from '../../components/listArea'
 import { AppState } from '../../store/reducers'
 import {AppConfigStateType as AppConfig} from '../../store/reducers/app_configs/types'
+import { ThemeType } from '../../themes/theme'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -31,8 +32,12 @@ const CanvasWrapDiv = Styled.div`
   
 `
 
+interface Props {
+  changeTheme: (string) => void
+  appTheme: ThemeType
+}
 
-function MainPage() {
+function MainPage(props: Props) {
   const countDownMinutes = useSelector<AppState, number>(appState => appState.appConfig.waitMinutes)
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
@@ -46,6 +51,10 @@ function MainPage() {
       if (!isPaused) {
         setPassedSeconds((passedSeconds: number) => passedSeconds + 1)
       }
+
+      if(countDownMinutes * 60 === passedSeconds){
+        props.changeTheme('break')
+      }
     }
 
     const intervalID = setInterval(doSetPassedSeconds, 1000)
@@ -53,7 +62,7 @@ function MainPage() {
     return () => {
       clearInterval(intervalID)
     }
-  }, [isPaused])
+  }, [isPaused, countDownMinutes, passedSeconds, props])
 
   return (
     <FlexWrapper>
@@ -77,7 +86,7 @@ function MainPage() {
             width={'540px'}
             height={'540px'}
             tomatoClockMinutes={countDownMinutes}
-            outterCanvasColor={isPaused ? '#FF4384' : '#FF4384'}
+            outterCanvasColor={isPaused ? props.appTheme.canvasThemeColor : props.appTheme.canvasThemeColor}
             isPaused={isPaused}
             passedSeconds={passedSeconds}
           />
