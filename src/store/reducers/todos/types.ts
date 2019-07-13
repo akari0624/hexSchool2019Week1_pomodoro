@@ -8,4 +8,5 @@ export type Todo = {
 
 export type TodosReducerState = {
   todos: Todo[],
+  nowTaskTodo: Todo | null,
 }
