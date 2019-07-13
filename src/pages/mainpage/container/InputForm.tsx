@@ -12,7 +12,7 @@ export default function InputForm() {
   const [text, setText] = useState('')
   const dispatcher = useDispatch()
   const todoList = useSelector<AppState, Todo[]>(state => state.todo.todos)
-  const newTodoMinute = useSelector<AppState, number>(state => state.appConfig.waitMinutes)
+  const newTodoMinute = useSelector<AppState, number>(state => state.appConfig.taskOneTomatowaitMinutes)
 
   const oneMinutesSec = 60 // 一分鐘60秒這樣的事情是不可能變了吧!!??
 

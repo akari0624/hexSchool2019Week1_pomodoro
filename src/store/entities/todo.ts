@@ -7,6 +7,8 @@ class TodoImpl implements Todo {
   createTimestamp: number
   isComplete: boolean
   nowTask: boolean
+  tomatoCount: number
+  nowTomatoCount: number
 
   constructor(desc: string, remainSec: number, nowTask: boolean) {
     this.desc = desc
@@ -14,6 +16,8 @@ class TodoImpl implements Todo {
     this.createTimestamp = Math.floor((Date.now() / 1000))
     this.isComplete = false
     this.nowTask = nowTask
+    this.tomatoCount = 1
+    this.nowTomatoCount = 1
   }
 
   

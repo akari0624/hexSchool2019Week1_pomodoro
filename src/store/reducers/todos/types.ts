@@ -4,6 +4,8 @@ export type Todo = {
   createTimestamp: number,
   isComplete: boolean,
   nowTask: boolean,
+  tomatoCount: number,
+  nowTomatoCount: number,
 }
 
 export type TodosReducerState = {
