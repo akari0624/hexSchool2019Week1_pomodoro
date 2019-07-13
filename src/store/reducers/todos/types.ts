@@ -3,6 +3,7 @@ export type Todo = {
   remainSec: number,
   createTimestamp: number,
   isComplete: boolean,
+  nowTask: boolean,
 }
 
 export type TodosReducerState = {
