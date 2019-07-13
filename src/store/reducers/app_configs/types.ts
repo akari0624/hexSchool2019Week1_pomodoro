@@ -1,3 +1,10 @@
 export type AppConfigStateType = {
-  waitMinutes: number,
+  taskOneTomatowaitMinutes: number,
+  betweenTomatoTaskBreakMinutes: number,
+  appNowStatus: AppCondition,
+}
+
+export enum AppCondition {
+    ACTIVE = 'ACTIVE',
+    BREAK = 'BREAK',
 }
