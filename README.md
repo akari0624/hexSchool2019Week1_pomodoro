@@ -13,3 +13,10 @@
 - react hook api, `useRef`, `useLayoutEffect`.....，其中在`useEffect`裡要呼叫`setInterval`時，有些很雷的地方值得注意。
 - 兩層canvas堆疊
 - 使用`requestAnimationFrame`以期望達到最順暢，最節省硬體資源的動畫效果
+
+## todo 
+重要性由上而下排列：
+1. 時間到期時，播放音效(但 CRA沒辦法打包mp3，所以做起來很麻煩，不然就是mp3檔案url直接用網路連結)
+2. 選擇其他todo時切換`currTask`
+3. 資料的`持久化`對策（最簡單的作法就存在localstorage裡）
+4. 報表頁面, whole todoList頁面, 切換鈴聲頁面 
