@@ -47,8 +47,8 @@ interface Props {
 function MainPage(props: Props) {
   const { countDownMinutes, appTheme, changeTheme, toggleAppStatus, appConditionNow } = props
 
-  const todos = useSelector<AppState, Todo[]>( state => state.todo.todos)
-  const isHaveTodosToBeginPomodoro = todos.length > 0 ? true : false
+  const nowTaskTodo = useSelector<AppState, Todo | null>( state => state.todo.nowTaskTodo)
+  const isHaveTodosToBeginPomodoro = nowTaskTodo ? true : false
   const specilaText = isHaveTodosToBeginPomodoro ? '' : 'add Some Todos'
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
