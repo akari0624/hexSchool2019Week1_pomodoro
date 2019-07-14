@@ -48,10 +48,10 @@ export const CountdownTimeTextWrapper = Styled.div`
 `
 
 export const ListAreaWrapper = Styled.div`
-  margin-top: 110px;
+  margin-top: 20px;
   margin-left: 80px;
   width: 454px;
-  height: 115px;
+  height: 95px;
   overflow-y: auto;
   overflow-x: hidden;
 `

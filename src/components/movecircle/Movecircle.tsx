@@ -36,7 +36,7 @@ const MoveCircle = ({
       const offsetToPreventPixelOverflowCanvas = 2
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
-      ctx.rotate(-Math.PI / 2)
+      ctx.rotate(271 * Math.PI / 180)  // 不知為何要多旋轉一度才能對齊DIV的線，找不到原因
       ctx.lineWidth = lineWidth
       // 畫會慢慢長大的弧形
       ctx.beginPath()
