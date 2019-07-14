@@ -18,7 +18,7 @@ class TodoImpl implements Todo {
     this.isComplete = false
     this.nowTask = nowTask
     this.tomatoCount = 1
-    this.nowTomatoCount = 1
+    this.nowTomatoCount = 0
   }
 
   

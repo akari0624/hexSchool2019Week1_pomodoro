@@ -1,4 +1,5 @@
 export enum TodoSagaActionTypes {
   Add_TODO = 'Add_TODO_SAGA',
   Update_TODO = 'Update_TODO_SAGA',
+  UPDATE_CURR_TASK_TOMATO_COUNT_PLUS_1 = 'UPDATE_CURR_TASK_TOMATO_COUNT_PLUS_1_SAGA',
 } 

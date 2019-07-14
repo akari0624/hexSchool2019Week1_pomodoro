@@ -23,7 +23,7 @@ export default function NowTaskBar() {
         </ToggleDoneCirclieWrapper>
         <LeftWrapper>
           <TodoDescWrapper>{nowTaskTodo.desc}</TodoDescWrapper>
-          <TomatoCountWrapper>123 123</TomatoCountWrapper>
+          <TomatoCountWrapper>{ nowTaskTodo.nowTomatoCount }</TomatoCountWrapper>
         </LeftWrapper>
       </MainTaskBaWrapper>
     )

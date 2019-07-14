@@ -8,4 +8,7 @@ const addNewTodoToTodoList = createAction(TodoReducerActionTypes.Add_TODO_TO_TOD
 
 const updateTodo = createAction(TodoReducerActionTypes.Update_TODO, (payload: TodoVO) => payload)
 
-export {addNewTodoToCurrTask, addNewTodoToTodoList, updateTodo}
+const updateCurrTaskTomatoCount = createAction(TodoReducerActionTypes.UPDATE_CURR_TASK_TOMATO_COUNT_PLUS_1, (payload: TodoVO) => payload)
+
+
+export {addNewTodoToCurrTask, addNewTodoToTodoList, updateTodo, updateCurrTaskTomatoCount}

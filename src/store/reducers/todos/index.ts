@@ -18,6 +18,8 @@ export const TodosReducer = (
       return { ...state, nowTaskTodo: payload }
     case TodoReducerActionTypes.Add_TODO_TO_TODO_LIST:
       return { ...state, todos: [...state.todos, payload] }
+    case TodoReducerActionTypes.UPDATE_CURR_TASK_TOMATO_COUNT_PLUS_1:
+      return {...state, nowTaskTodo: payload}
 
     default:
       return state

@@ -3,6 +3,7 @@ import { TodoSagaActionTypes } from '../../actionTypes/sagas/todo'
 import {
   addNewTodoToCurrTask,
   addNewTodoToTodoList,
+  updateCurrTaskTomatoCount,
 } from '../../actionCreator/reducers/todos'
 import { Action } from 'redux-actions'
 import { TodoVO } from '../../entities/todo'
@@ -23,6 +24,25 @@ function* addNewTodoFlow() {
   }
 }
 
+function* updateCurrTaskTomatoCountFlow() {
+  while (true) {
+    yield take(TodoSagaActionTypes.UPDATE_CURR_TASK_TOMATO_COUNT_PLUS_1)
+    const selectTodos = (state: AppState) => state.todo
+    const toReducerState: TodosReducerState = yield select(selectTodos)
+    const { nowTaskTodo } = toReducerState
+    console.log(nowTaskTodo)
+    if (nowTaskTodo) {
+      const newNowTaskTodo = {...nowTaskTodo, nowTomatoCount: nowTaskTodo.nowTomatoCount + 1}
+      yield put(updateCurrTaskTomatoCount(newNowTaskTodo))
+    } else {
+      throw new Error('there is no curr task to update tomato count !!')
+    }
+  }
+}
+
 export default function* todosRootSaga() {
-  yield all([addNewTodoFlow()])
+  yield all([
+    addNewTodoFlow(),
+    updateCurrTaskTomatoCountFlow(),
+  ])
 }

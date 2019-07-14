@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import Styled from 'styled-components'
 import { Decimal } from 'decimal.js'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   FlexWrapper,
   LeftWrapper,
@@ -20,6 +20,7 @@ import { AppCondition } from '../../store/reducers/app_configs/types'
 import { ThemeType } from '../../themes/theme'
 import { AppState } from '../../store/reducers'
 import { Todo } from '../../store/reducers/todos/types'
+import { updateCurrTaskTomatoCount } from '../../store/actionCreator/sagas/todos'
 
 const CanvasWrapDiv = Styled.div`
   position: absolute;
@@ -52,6 +53,7 @@ function MainPage(props: Props) {
   const specilaText = isHaveTodosToBeginPomodoro ? '' : 'add Some Todos'
   const [isPaused, setIsPaused] = useState(true)
   const [passedSeconds, setPassedSeconds] = useState(0)
+  const __DISPATCH = useDispatch()
 
   const handleIsPause = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if(!isHaveTodosToBeginPomodoro){
@@ -69,11 +71,13 @@ function MainPage(props: Props) {
       if(Decimal.mul(countDownMinutes, new Decimal(60)).eq(passedSeconds) ){
         if(appConditionNow === AppCondition.ACTIVE){
           changeTheme('break')
+          __DISPATCH(updateCurrTaskTomatoCount())
         }else{
           changeTheme('active')
         } 
         toggleAppStatus()
         setPassedSeconds(prevState => 0)
+        
       }
     }
 
