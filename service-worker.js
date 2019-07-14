@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/hexSchool2019Week1_pomodoro/precache-manifest.916741069eab71f67149f5746d2a1a81.js"
+  "/hexSchool2019Week1_pomodoro/precache-manifest.8b7944792ad0f47fa196d0ba03c51d9d.js"
 );
 
 workbox.clientsClaim();
