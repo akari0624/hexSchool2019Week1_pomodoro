@@ -14,10 +14,9 @@ export const TodosReducer = (
 ): TodosReducerState => {
   const { type, payload } = action
   switch (type) {
-    case TodoReducerActionTypes.Add_TODO:
-      if (state.todos.length === 0) {
-        return { todos: [...state.todos, payload], nowTaskTodo: payload }
-      }
+    case TodoReducerActionTypes.Add_TODO_TO_CURRENT_TASK:
+      return { ...state, nowTaskTodo: payload }
+    case TodoReducerActionTypes.Add_TODO_TO_TODO_LIST:
       return { ...state, todos: [...state.todos, payload] }
 
     default:
