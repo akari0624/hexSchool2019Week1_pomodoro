@@ -10,6 +10,7 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
+    "decimal.js": "^10.2.0",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "react-redux": "^7.1.0",
@@ -28,6 +29,7 @@
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.2",
     "@types/react-redux": "^7.1.1",
+    "@types/redux-actions": "^2.6.1",
     "@types/styled-components": "4.1.16",
     "gh-pages": "^2.0.1",
     "jest-canvas-mock": "^2.1.0",

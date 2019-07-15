@@ -1,14 +1,21 @@
 import React, { useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { InputFieldWithConfirmButton } from '../../../components/inputField'
-import { TodoReducerActionTypes } from '../../../store/actionTypes/reducers/todos'
 import { TodoVO } from '../../../store/entities/todo'
+import { addNewTodo } from '../../../store/actionCreator/sagas/todos'
+import { AppState } from '../../../store/reducers'
+import { Todo } from '../../../store/reducers/todos/types'
+import {Decimal} from 'decimal.js'
 
 const examineIsDescContentOK = (desc: string) => (desc ? true : false)
 
 export default function InputForm() {
   const [text, setText] = useState('')
   const dispatcher = useDispatch()
+  const todoList = useSelector<AppState, Todo[]>(state => state.todo.todos)
+  const newTodoMinute = useSelector<AppState, Decimal>(state => state.appConfig.taskOneTomatowaitMinutes)
+
+  const oneMinutesSec = new Decimal(60) // 一分鐘60秒這樣的事情是不可能變了吧!!??
 
   const onInputContentChange = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +31,15 @@ export default function InputForm() {
       if (!examineIsDescContentOK(text)) {
         return
       }
+      if(todoList.length === 0){
+        dispatcher(addNewTodo(new TodoVO(text, newTodoMinute.mul(oneMinutesSec), true)))
+      }else{
+        dispatcher(addNewTodo(new TodoVO(text, newTodoMinute.mul(oneMinutesSec), false)))
+      }
 
-      dispatcher({
-        type: TodoReducerActionTypes.Add_TODO,
-        payload: new TodoVO(text, 1500),
-      })
+      setText(prevText => '')
     },
-    [text],
+    [text, newTodoMinute, setText],
   )
 
   return (

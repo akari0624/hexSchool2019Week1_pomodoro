@@ -13,7 +13,7 @@ export const FlexWrapper = Styled.main`
 export const LeftWrapper = Styled.section`
   width: 70%;
   height: 100%;
-  background-color: #FFEDF7;
+  background-color: ${props => props.theme.leftWrapperBgColor};
   position: relative;
   @media (max-width:${props => props.theme.mobileOneColumn}){
     width: 100%;
@@ -31,12 +31,17 @@ export const RightWrapper = Styled.div`
   }
 `
 
+export const NowTaskBarWrapper = Styled.div`
+  margin-left: 85px;
+  margin-top: 145px;
+`
+
 export const InputFormLocatedWrapper = Styled.div`
   margin-left: 85px;
   margin-top: 48px;
 `
 export const CountdownTimeTextWrapper = Styled.div`
-  margin-top: 164px;
+  margin-top: 2px;
   margin-left: 80px;
   width: 454px;
   height: 206px;

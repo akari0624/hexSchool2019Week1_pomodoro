@@ -36,7 +36,7 @@ const MoveCircle = ({
       const offsetToPreventPixelOverflowCanvas = 2
       ctx.clearRect(0, 0, ctxWidth, ctxHeight)
       ctx.translate(ctxWidth / 2, ctxHeight / 2)
-      ctx.rotate(-Math.PI / 2)
+      ctx.rotate(271 * Math.PI / 180)  // 不知為何要多旋轉一度才能對齊DIV的線，找不到原因
       ctx.lineWidth = lineWidth
       // 畫會慢慢長大的弧形
       ctx.beginPath()
@@ -82,9 +82,9 @@ const MoveCircle = ({
       innerCtx.lineWidth = lineWidth
       innerCtx.beginPath()
       innerCtx.arc(0, 0, playCircleRadius, 0, 2 * Math.PI)
-      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
+      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : outterCanvasColor
       innerCtx.stroke()
-      innerCtx.fillStyle = isPaused ? '#FFFFFF' : '#FF4384'
+      innerCtx.fillStyle = isPaused ? '#FFFFFF' : outterCanvasColor
       innerCtx.fill()
       innerCtx.closePath()
 
@@ -100,9 +100,9 @@ const MoveCircle = ({
         innerCtx.lineTo(-triangleBaseLength * 1, triangleBaseLength)
         innerCtx.lineTo(triangleBaseLength, 0)
         innerCtx.closePath()
-        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.strokeStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.stroke()
-        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fillStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.fill()
       }else{
         const stopSignBaseLength = playCircleRadius / 3
@@ -114,9 +114,9 @@ const MoveCircle = ({
         innerCtx.lineTo(0, stopSignBaseLength)
         innerCtx.lineTo(stopSignBaseLength, stopSignBaseLength)
         innerCtx.closePath()
-        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.strokeStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.stroke()
-        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fillStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.fill()
 
         innerCtx.translate(-10, 0)
@@ -131,16 +131,16 @@ const MoveCircle = ({
         innerCtx.lineTo(0, 0)
         innerCtx.closePath()
 
-        innerCtx.strokeStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.strokeStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.stroke()
-        innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+        innerCtx.fillStyle = isPaused ? outterCanvasColor : '#FFFFFF'
         innerCtx.fill()
 
       }
 
       innerCtx.setTransform(1, 0, 0, 1, 0, 0)
     },
-    [isPaused],
+    [isPaused, outterCanvasColor],
   )
 
   const drawInnerCircle = useCallback(
@@ -160,16 +160,16 @@ const MoveCircle = ({
         0,
         2 * Math.PI,
       )
-      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : '#FF4384'
+      innerCtx.strokeStyle = isPaused ? '#FFFFFF' : outterCanvasColor
       innerCtx.stroke()
-      innerCtx.fillStyle = isPaused ? '#FF4384' : '#FFFFFF'
+      innerCtx.fillStyle = isPaused ? outterCanvasColor : '#FFFFFF'
       innerCtx.fill()
       innerCtx.closePath()
       innerCtx.setTransform(1, 0, 0, 1, 0, 0)
 
       drawPlayOrStopButton(innerCtx, ctxWidth, ctxHeight, isPaused)
     },
-    [],
+    [outterCanvasColor],
   )
 
   useLayoutEffect(() => {

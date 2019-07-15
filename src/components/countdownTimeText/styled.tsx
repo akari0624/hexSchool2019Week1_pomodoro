@@ -9,9 +9,13 @@ const TimeTetxWrapper = Styled.div`
   text-align: center;
 `
 
-const TimeText = Styled.div`
-  color: #FF4384;
-  font-size: 176px;
+type TimeTextProps = {
+  textLength: number
+}
+
+const TimeText = Styled.div<TimeTextProps>`
+  color: ${ props => props.theme.countDownTextColor};
+  font-size: ${props => props.textLength > 5 ? '50px' : '176px'};
   line-height: ${TEXT_LINE_HEIGHT};
   font-family: 'Roboto', sans-serif;
    @media (max-width:${props => props.theme.mobileOneColumn}){
@@ -20,11 +24,16 @@ const TimeText = Styled.div`
 `
 
 interface Props {
-  children: string | Function
+  children: () => string
+}
+
+const renderBigOrSmallText = (textToRender: string): JSX.Element => {
+  const textLength = textToRender.length
+  return <TimeText textLength={textLength}>{textToRender}</TimeText>
 }
 
 export const TimeTextStyledComp = ({children}: Props) => (
   <TimeTetxWrapper>
-    <TimeText>{children}</TimeText>
+    {renderBigOrSmallText(children())}
   </TimeTetxWrapper>
 )
